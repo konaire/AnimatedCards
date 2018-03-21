@@ -7,5 +7,6 @@ package com.konaire.animatedstorecards.model
 data class ListData(
     val title: String,
     val subtitle: String,
+    val background: String,
     val items: MutableList<Card>
 )

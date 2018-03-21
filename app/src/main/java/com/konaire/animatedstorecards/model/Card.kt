@@ -14,7 +14,8 @@ import com.konaire.animatedstorecards.util.createParcel
 data class Card(
     val photo: String,
     val title: String,
-    val description: String
+    val shortDescription: String,
+    val fullDescription: String
 ): Parcelable, ViewType {
     companion object {
         @JvmField
@@ -22,12 +23,13 @@ data class Card(
         val CREATOR = createParcel { Card(it) }
     }
 
-    constructor(): this("", "", "")
+    constructor(): this("", "", "", "")
 
     constructor(parcel: Parcel): this(
         photo = parcel.readString() ?: "",
         title = parcel.readString() ?: "",
-        description = parcel.readString() ?: ""
+        shortDescription = parcel.readString() ?: "",
+        fullDescription = parcel.readString() ?: ""
     )
 
     override fun describeContents(): Int = 0
@@ -35,7 +37,8 @@ data class Card(
     override fun writeToParcel(parcel: Parcel?, flags: Int) {
         parcel?.writeString(photo)
         parcel?.writeString(title)
-        parcel?.writeString(description)
+        parcel?.writeString(shortDescription)
+        parcel?.writeString(fullDescription)
     }
 
     override fun getViewType(): Int = ListItemType.Card.ordinal
