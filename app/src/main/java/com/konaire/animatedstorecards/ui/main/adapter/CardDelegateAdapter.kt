@@ -54,8 +54,13 @@ class CardDelegateAdapter(
 
             title.text = item.title
             description.text = item.shortDescription
-            Glide.with(image).load(item.photo).apply(
-                RequestOptions().placeholder(android.R.color.darker_gray).centerCrop()
+            Glide.with(image).load(item.photo).apply(RequestOptions()
+                .placeholder(android.R.color.darker_gray)
+                .centerCrop()
+                .override( // otherwise image can be shrinked
+                    context.resources.getDimensionPixelSize(R.dimen.card_width),
+                    context.resources.getDimensionPixelSize(R.dimen.card_image_height)
+                )
             ).into(image)
 
             setOnClickListener { listener.onItemSelected(item) }

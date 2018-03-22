@@ -59,8 +59,8 @@ class ListFragment: Fragment(), OnViewSelectedListener<Card> {
         behavior.overlayTop = cardTextHeight + 2 * indent // included indents because we need to show some space in the bottom
         appbar.addOnOffsetChangedListener({ _, verticalOffset ->
             val absVerticalOffset = Math.abs(verticalOffset)
-            val diffOffset = 1F * (listHeight - absVerticalOffset) / listHeight
-            adapter.updateItemHeight(absVerticalOffset * diffHeight + cardTextHeight * diffOffset, cardImageHeight * (1 - diffOffset))
+            val percentage = 1 - 1F * absVerticalOffset / listHeight
+            adapter.updateItemHeight(absVerticalOffset * diffHeight + percentage * cardTextHeight, (1 - percentage) * cardImageHeight)
         })
 
         list.layoutParams = params

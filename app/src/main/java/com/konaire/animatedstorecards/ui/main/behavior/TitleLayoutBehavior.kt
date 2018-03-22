@@ -14,7 +14,7 @@ import com.konaire.animatedstorecards.R
  */
 
 @Suppress("unused")
-class TitleBehavior(
+class TitleLayoutBehavior(
     context: Context,
     attrs: AttributeSet
 ): CoordinatorLayout.Behavior<ConstraintLayout>(context, attrs) {
@@ -45,7 +45,7 @@ class TitleBehavior(
         val title = child.findViewById<View>(R.id.title)
         val subtitle = child.findViewById<View>(R.id.subtitle)
         val maxScroll = (dependency as AppBarLayout).totalScrollRange
-        val percentage = 1 - Math.abs(dependency.getY()) / maxScroll.toFloat()
+        val percentage = 1 - (Math.abs(dependency.y) / maxScroll)
 
         val titleParams = title.layoutParams as ConstraintLayout.LayoutParams
         titleParams.verticalBias = startVerticalBias + percentage * (finalVerticalBias - startVerticalBias)
