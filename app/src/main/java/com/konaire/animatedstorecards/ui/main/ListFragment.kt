@@ -63,6 +63,7 @@ class ListFragment: Fragment(), OnViewSelectedListener<Card> {
             adapter.updateItemHeight(absVerticalOffset * diffHeight + cardTextHeight * diffOffset, cardImageHeight * (1 - diffOffset))
         })
 
+        list.layoutParams = params
         list.addItemDecoration(SpaceDecoration(resources.getDimensionPixelSize(R.dimen.default_indent)))
         list.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
         list.adapter = adapter
@@ -82,6 +83,8 @@ class ListFragment: Fragment(), OnViewSelectedListener<Card> {
     }
 
     private fun displayData(data: ListData) {
+        title.text = data.title
+        subtitle.text = data.subtitle
         Glide.with(toolbarBackground).load(data.background).apply(
             RequestOptions().placeholder(R.color.colorPrimary).centerCrop()
         ).into(toolbarBackground)
@@ -95,7 +98,7 @@ class ListFragment: Fragment(), OnViewSelectedListener<Card> {
             ListData(
                 "La Delice",
                 "Pastry Shop",
-                "https://aqvaparkatoll.ru/public/files/meals/2015/09/fd634e119.png",
+                "https://flytothesky.ru/wp-content/uploads/2016/11/kak-vybrat-bokal-dlya-vina.jpg",
                 arrayListOf(
                     Card(
                         "http://www.sentidoorkalotusbeach.com/Uploaded/Content/565fb531-3896-4788-9619-bff348df9f71.jpg",

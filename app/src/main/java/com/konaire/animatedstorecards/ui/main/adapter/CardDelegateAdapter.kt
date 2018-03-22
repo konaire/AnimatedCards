@@ -34,7 +34,9 @@ class CardDelegateAdapter(
             val description = findViewById<TextView>(R.id.description)
 
             if (itemHeight > 0) {
-                (layoutParams as ViewGroup.MarginLayoutParams).height = Math.round(itemHeight)
+                val params = layoutParams as ViewGroup.MarginLayoutParams
+                params.height = Math.round(itemHeight)
+                layoutParams = params
             }
 
             if (imageHeight >= 0) {
@@ -45,7 +47,9 @@ class CardDelegateAdapter(
                     imageHeight = 1.0F
                 }
 
-                (image.layoutParams as ViewGroup.MarginLayoutParams).height = Math.round(imageHeight)
+                val params = image.layoutParams as ViewGroup.MarginLayoutParams
+                params.height = Math.round(imageHeight)
+                image.layoutParams = params
             }
 
             title.text = item.title
