@@ -24,12 +24,29 @@ class CardDelegateAdapter(
 ): DelegateAdapter<Card> {
     class CardViewHolder(
         rootView: View,
+        private var itemHeight: Float,
+        private var imageHeight: Float,
         private val listener: OnViewSelectedListener<Card>
     ): RecyclerView.ViewHolder(rootView) {
         fun bind(item: Card) = with (itemView) {
             val title = findViewById<TextView>(R.id.title)
             val image = findViewById<ImageView>(R.id.image)
             val description = findViewById<TextView>(R.id.description)
+
+            if (itemHeight > 0) {
+                (layoutParams as ViewGroup.MarginLayoutParams).height = Math.round(itemHeight)
+            }
+
+            if (imageHeight >= 0) {
+                if (imageHeight > 0) {
+                    image.visibility = View.VISIBLE
+                } else { // because if we set 0 it will act like match_constraint
+                    image.visibility = View.GONE
+                    imageHeight = 1.0F
+                }
+
+                (image.layoutParams as ViewGroup.MarginLayoutParams).height = Math.round(imageHeight)
+            }
 
             title.text = item.title
             description.text = item.shortDescription
@@ -39,11 +56,27 @@ class CardDelegateAdapter(
 
             setOnClickListener { listener.onItemSelected(item) }
         }
+
+        fun updateItemHeight(itemHeight: Float, imageHeight: Float) {
+            this.itemHeight = itemHeight
+            this.imageHeight = imageHeight
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder =
-        CardViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.item_card, parent, false), listener)
+    private var itemHeight: Float = -1F
+    private var imageHeight: Float = -1F
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, item: Card) =
-        (holder as CardViewHolder).bind(item)
+    override fun onCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder =
+        CardViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.item_card, parent, false), itemHeight, imageHeight, listener)
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, item: Card) {
+        val cardHolder = holder as CardViewHolder
+        cardHolder.updateItemHeight(itemHeight, imageHeight)
+        cardHolder.bind(item)
+    }
+
+    fun updateItemHeight(itemHeight: Float, imageHeight: Float) {
+        this.itemHeight = itemHeight
+        this.imageHeight = imageHeight
+    }
 }

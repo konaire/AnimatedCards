@@ -15,4 +15,14 @@ class MainAdapter(
     init {
         delegateAdapters[ListItemType.Card.ordinal] = CardDelegateAdapter(listener)
     }
+
+    fun updateItemHeight(itemHeight: Float, imageHeight: Float) {
+        for (adapter in delegateAdapters.values) {
+            if (adapter is CardDelegateAdapter) {
+                adapter.updateItemHeight(itemHeight, imageHeight)
+            }
+        }
+
+        notifyDataSetChanged()
+    }
 }

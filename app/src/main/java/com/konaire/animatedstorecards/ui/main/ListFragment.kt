@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.design.widget.AppBarLayout
+import android.support.design.widget.CoordinatorLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +19,7 @@ import com.konaire.animatedstorecards.model.ListData
 import com.konaire.animatedstorecards.ui.list.OnViewSelectedListener
 import com.konaire.animatedstorecards.ui.list.SpaceDecoration
 import com.konaire.animatedstorecards.ui.main.adapter.MainAdapter
+import com.konaire.animatedstorecards.util.getScreenHeight
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
@@ -43,6 +46,23 @@ class ListFragment: Fragment(), OnViewSelectedListener<Card> {
         inflater.inflate(R.layout.fragment_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val params = list.layoutParams as CoordinatorLayout.LayoutParams
+        val behavior = params.behavior as AppBarLayout.ScrollingViewBehavior
+        val indent = resources.getDimensionPixelSize(R.dimen.default_indent)
+        val toolbarHeight = resources.getDimensionPixelSize(R.dimen.toolbar_height)
+        val cardImageHeight = resources.getDimensionPixelSize(R.dimen.card_image_height)
+        val listHeight = activity!!.getScreenHeight() - toolbarHeight
+        val cardHeight = listHeight - 2 * indent
+        val diffHeight = 1F * cardHeight / listHeight
+        val cardTextHeight = cardHeight - cardImageHeight
+
+        behavior.overlayTop = cardTextHeight + 2 * indent // included indents because we need to show some space in the bottom
+        appbar.addOnOffsetChangedListener({ _, verticalOffset ->
+            val absVerticalOffset = Math.abs(verticalOffset)
+            val diffOffset = 1F * (listHeight - absVerticalOffset) / listHeight
+            adapter.updateItemHeight(absVerticalOffset * diffHeight + cardTextHeight * diffOffset, cardImageHeight * (1 - diffOffset))
+        })
+
         list.addItemDecoration(SpaceDecoration(resources.getDimensionPixelSize(R.dimen.default_indent)))
         list.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
         list.adapter = adapter
