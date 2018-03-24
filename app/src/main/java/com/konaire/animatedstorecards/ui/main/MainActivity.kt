@@ -2,9 +2,9 @@ package com.konaire.animatedstorecards.ui.main
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.transition.ChangeBounds
-import android.transition.ChangeTransform
-import android.transition.TransitionSet
+import android.support.transition.ChangeBounds
+import android.support.transition.ChangeTransform
+import android.support.transition.TransitionSet
 import android.view.View
 
 import com.konaire.animatedstorecards.R
