@@ -7,11 +7,4 @@
 
         <item name="android:windowTranslucentStatus">true</item>
     </style>
-
-    <style name="SemiTransparentLayout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/semi_transparent_black</item>
-        <item name="android:clickable">true</item>
-    </style>
 </resources>

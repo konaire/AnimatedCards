@@ -1,5 +1,7 @@
 package com.konaire.animatedstorecards.ui.main
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
@@ -22,11 +24,13 @@ class DetailFragment: BaseFragment() {
     companion object {
         private const val TAG = "DETAIL"
         private const val KEY_CARD = "key_card"
+        private const val KEY_BACKGROUND = "key_background"
 
-        fun create(card: Card): DetailFragment {
+        fun create(card: Card, background: Bitmap): DetailFragment {
             val fragment = DetailFragment()
             val args = Bundle()
 
+            args.putParcelable(KEY_BACKGROUND, background)
             args.putParcelable(KEY_CARD, card)
             fragment.arguments = args
             return fragment
@@ -34,6 +38,8 @@ class DetailFragment: BaseFragment() {
     }
 
     private fun getCard(): Card = arguments?.getParcelable(KEY_CARD) ?: Card()
+
+    private fun getBackground(): Bitmap? = arguments?.getParcelable(KEY_BACKGROUND)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_detail, container, false)
@@ -47,6 +53,8 @@ class DetailFragment: BaseFragment() {
             .placeholder(android.R.color.darker_gray)
             .centerCrop()
         ).into(image)
+        layout.transitionName = card.id.toString()
+        view.background = BitmapDrawable(resources, getBackground())
     }
 
     override fun getFragmentTag(): String = TAG

@@ -1,5 +1,8 @@
 package com.konaire.animatedstorecards.ui.main
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -73,8 +76,9 @@ class ListFragment: BaseFragment(), OnViewSelectedListener<Card> {
 
     override fun getFragmentTag(): String = TAG
 
-    override fun onItemSelected(item: Card) {
-        (activity as MainActivity).showOverlayFragment(DetailFragment.create(item))
+    override fun onItemSelected(item: Card, itemView: View) {
+        val fragment = DetailFragment.create(item, getBackgroundBitmap())
+        (activity as MainActivity).showOverlayFragment(fragment, itemView)
     }
 
     private fun showProgress() {
@@ -108,5 +112,20 @@ class ListFragment: BaseFragment(), OnViewSelectedListener<Card> {
             hideProgress()
             displayData(data)
         })
+    }
+
+    // We can't use shared transition if fragment is placed in another container or it is added but not replaced.
+    // So this is a small crutch to set masked screenshot of parent fragment as background of the fragment.
+    private fun getBackgroundBitmap(): Bitmap {
+        val width = view?.measuredWidth ?: 1
+        val height = view?.measuredHeight ?: 1
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val semiTransparentBlack = Color.argb(192, 0, 0, 0)
+        val canvas = Canvas(bitmap)
+
+        view?.draw(canvas)
+        canvas.drawColor(semiTransparentBlack)
+
+        return bitmap
     }
 }

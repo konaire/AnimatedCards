@@ -2,6 +2,10 @@ package com.konaire.animatedstorecards.ui.main
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.transition.ChangeBounds
+import android.transition.ChangeTransform
+import android.transition.TransitionSet
+import android.view.View
 
 import com.konaire.animatedstorecards.R
 
@@ -15,10 +19,15 @@ class MainActivity: AppCompatActivity() {
         }
     }
 
-    fun showOverlayFragment(fragment: BaseFragment) {
-        supportFragmentManager.beginTransaction().replace(
-            R.id.overlayContainer, fragment, fragment.getFragmentTag()
-        ).addToBackStack(null).commit()
+    fun showOverlayFragment(fragment: BaseFragment, view: View) {
+        fragment.sharedElementEnterTransition = getTransitionSet()
+        fragment.sharedElementReturnTransition = getTransitionSet()
+
+        supportFragmentManager.beginTransaction()
+            .addSharedElement(view, view.transitionName)
+            .replace(R.id.mainContainer, fragment, fragment.getFragmentTag())
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun showListFragment() {
@@ -27,4 +36,10 @@ class MainActivity: AppCompatActivity() {
             R.id.mainContainer, fragment, fragment.getFragmentTag()
         ).commit()
     }
+
+    private fun getTransitionSet() =
+        TransitionSet()
+            .addTransition(ChangeBounds())
+            .addTransition(ChangeTransform())
+            .setOrdering(TransitionSet.ORDERING_TOGETHER)
 }

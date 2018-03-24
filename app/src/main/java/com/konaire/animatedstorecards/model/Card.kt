@@ -12,6 +12,7 @@ import com.konaire.animatedstorecards.util.createParcel
  */
 
 data class Card(
+    val id: Int,
     val photo: String,
     val title: String,
     val shortDescription: String,
@@ -23,9 +24,10 @@ data class Card(
         val CREATOR = createParcel { Card(it) }
     }
 
-    constructor(): this("", "", "", "")
+    constructor(): this(0, "", "", "", "")
 
     constructor(parcel: Parcel): this(
+        id = parcel.readInt(),
         photo = parcel.readString() ?: "",
         title = parcel.readString() ?: "",
         shortDescription = parcel.readString() ?: "",
@@ -35,6 +37,7 @@ data class Card(
     override fun describeContents(): Int = 0
 
     override fun writeToParcel(parcel: Parcel?, flags: Int) {
+        parcel?.writeInt(id)
         parcel?.writeString(photo)
         parcel?.writeString(title)
         parcel?.writeString(shortDescription)

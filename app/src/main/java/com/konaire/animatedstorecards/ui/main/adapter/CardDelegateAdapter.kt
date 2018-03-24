@@ -63,7 +63,8 @@ class CardDelegateAdapter(
                 )
             ).into(image)
 
-            setOnClickListener { listener.onItemSelected(item) }
+            transitionName = item.id.toString()
+            setOnClickListener { listener.onItemSelected(item, this) }
         }
 
         fun updateItemHeight(itemHeight: Float, imageHeight: Float) {
