@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="statusbar_height">25dp</dimen>
     <dimen name="toolbar_height">180dp</dimen>
     <dimen name="default_indent">12dp</dimen>
+    <dimen name="big_indent">16dp</dimen>
+
     <dimen name="progress_size">32dp</dimen>
 
     <dimen name="default_text_size">16sp</dimen>
@@ -10,7 +13,9 @@
     <dimen name="toolbar_subtitle_marginTop">4dp</dimen>
 
     <dimen name="card_width">210dp</dimen>
-    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="card_corner_radius">10dp</dimen>
+    <dimen name="card_item_corner_radius">4dp</dimen>
+
     <dimen name="card_image_height">240dp</dimen>
     <dimen name="card_description_marginTop">8dp</dimen>
 

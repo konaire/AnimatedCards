@@ -1,7 +1,7 @@
 package com.konaire.animatedstorecards.ui.main
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 
 import com.konaire.animatedstorecards.R
 
@@ -15,8 +15,16 @@ class MainActivity: AppCompatActivity() {
         }
     }
 
+    fun showOverlayFragment(fragment: BaseFragment) {
+        supportFragmentManager.beginTransaction().replace(
+            R.id.overlayContainer, fragment, fragment.getFragmentTag()
+        ).addToBackStack(null).commit()
+    }
+
     private fun showListFragment() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.mainContainer, ListFragment.create(), ListFragment.TAG).commit()
+        val fragment = ListFragment.create()
+        supportFragmentManager.beginTransaction().replace(
+            R.id.mainContainer, fragment, fragment.getFragmentTag()
+        ).commit()
     }
 }
