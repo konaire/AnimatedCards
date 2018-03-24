@@ -8,6 +8,7 @@ import android.support.transition.TransitionSet
 import android.view.View
 
 import com.konaire.animatedstorecards.R
+import com.konaire.animatedstorecards.ui.BaseFragment
 
 class MainActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -22,6 +22,7 @@ import com.konaire.animatedstorecards.R
 import com.konaire.animatedstorecards.model.Card
 import com.konaire.animatedstorecards.model.ListData
 import com.konaire.animatedstorecards.network.Mock
+import com.konaire.animatedstorecards.ui.BaseFragment
 import com.konaire.animatedstorecards.ui.list.OnViewSelectedListener
 import com.konaire.animatedstorecards.ui.list.SpaceDecoration
 import com.konaire.animatedstorecards.ui.main.adapter.MainAdapter

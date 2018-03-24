@@ -1,4 +1,4 @@
-package com.konaire.animatedstorecards.ui.main
+package com.konaire.animatedstorecards.ui
 
 import android.support.v4.app.Fragment
 

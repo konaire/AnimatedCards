@@ -29,6 +29,7 @@ class CardDelegateAdapter(
         private val listener: OnViewSelectedListener<Card>
     ): RecyclerView.ViewHolder(rootView) {
         fun bind(item: Card) = with (itemView) {
+            val layout = findViewById<View>(R.id.layout)
             val title = findViewById<TextView>(R.id.title)
             val image = findViewById<ImageView>(R.id.image)
             val description = findViewById<TextView>(R.id.description)
@@ -63,8 +64,8 @@ class CardDelegateAdapter(
                 )
             ).into(image)
 
-            transitionName = item.id.toString()
-            setOnClickListener { listener.onItemSelected(item, this) }
+            layout.transitionName = item.id.toString()
+            setOnClickListener { listener.onItemSelected(item, layout) }
         }
 
         fun updateItemHeight(itemHeight: Float, imageHeight: Float) {

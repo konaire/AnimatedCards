@@ -3,9 +3,9 @@
     <declare-styleable name="ConstraintLayout">
         <attr name="startHeight" format="dimension" />
         <attr name="finalHeight" format="dimension" />
-        <attr name="startVerticalBias" format="float"/>
-        <attr name="finalVerticalBias" format="float"/>
-        <attr name="startSubtitleHorizontalBias" format="float"/>
-        <attr name="finalSubtitleHorizontalBias" format="float"/>
+        <attr name="startVerticalBias" format="float" />
+        <attr name="finalVerticalBias" format="float" />
+        <attr name="startSubtitleHorizontalBias" format="float" />
+        <attr name="finalSubtitleHorizontalBias" format="float" />
     </declare-styleable>
 </resources>

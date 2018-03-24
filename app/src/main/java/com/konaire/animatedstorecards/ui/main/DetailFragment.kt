@@ -13,6 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 
 import com.konaire.animatedstorecards.R
 import com.konaire.animatedstorecards.model.Card
+import com.konaire.animatedstorecards.ui.BaseFragment
 
 import kotlinx.android.synthetic.main.fragment_detail.*
 
@@ -55,6 +56,7 @@ class DetailFragment: BaseFragment() {
         ).into(image)
         layout.transitionName = card.id.toString()
         view.background = BitmapDrawable(resources, getBackground())
+        close.setOnClickListener { activity?.supportFragmentManager?.popBackStack() }
     }
 
     override fun getFragmentTag(): String = TAG
