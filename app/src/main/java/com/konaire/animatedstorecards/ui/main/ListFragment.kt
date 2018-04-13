@@ -112,8 +112,9 @@ class ListFragment: BaseFragment(), OnViewSelectedListener<Card> {
     override fun getFragmentTag(): String = TAG
 
     override fun onItemSelected(item: Card, itemView: View) {
-        val fragment = DetailFragment.create(item, getBackgroundBitmap())
-        (activity as MainActivity).showOverlayFragment(fragment, itemView)
+        val activity = activity as MainActivity
+        activity.listBackground = getBackgroundBitmap()
+        activity.showOverlayFragment(DetailFragment.create(item), itemView)
     }
 
     private fun updateToolbar() {

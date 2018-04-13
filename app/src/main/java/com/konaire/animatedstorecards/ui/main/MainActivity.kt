@@ -1,5 +1,6 @@
 package com.konaire.animatedstorecards.ui.main
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.transition.ChangeBounds
@@ -11,6 +12,8 @@ import com.konaire.animatedstorecards.R
 import com.konaire.animatedstorecards.ui.BaseFragment
 
 class MainActivity: AppCompatActivity() {
+    lateinit var listBackground: Bitmap
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
